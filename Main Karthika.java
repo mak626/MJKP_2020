@@ -3,7 +3,6 @@ import java.awt.event.*;
 
 public class Main extends Frame
 {
-
     Main()
     {
 
