@@ -1,7 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class Main extends Frame 
+public class Main extends Frame
+{
 
     Main()
     {
@@ -18,7 +19,6 @@ public class Main extends Frame
         setLayout(new FlowLayout(FlowLayout.LEFT));
         setVisible(true);
     }
-
 
     public static void main(String args[])
     {
