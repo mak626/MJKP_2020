@@ -5,6 +5,10 @@ public class Main extends Frame
 {
     Main()
     {
+        System.out.println("Hello");
+        System.out.println("Hello");
+        System.out.println("Hello");
+        System.out.println("Hello");
 
         addWindowListener(new WindowAdapter()
         {
