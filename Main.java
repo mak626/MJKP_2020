@@ -1,73 +1,189 @@
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
+import javax.swing.*;
 
-class Main extends Frame implements MouseMotionListener
+class Main extends JFrame implements ActionListener
 {
-    static int xPixel = 0;
-    static int yPixel = 0;
-    static int xSky = 0;
-    static int ySky = 0;
-    Random num;
-    Image rocket;
+    // Coordinates of rocket
+    static int xRocket = 300;
+    static int yRocket = 300;
+
+    // To determine the number of stars
+    int timer = 5;
+
+    // Importing images
+    Image rocket = Toolkit.getDefaultToolkit().getImage("rocket.png");
+    Image rocket_NoEngine = Toolkit.getDefaultToolkit().getImage("rocket_noengine.png");
+
     Button liftOff;
+    Label Data;
+
+    boolean Takeoff = false;
+
+    // Threads to repaint the screen and to Increment Timers
+    RepaintThread launch = new RepaintThread();
+    TimerThread LoopTimer = new TimerThread();
 
     public Main()
     {
+        Data = new Label("MJKP 2020");
+        Data.setBounds(840, 100, 110, 40);
+        Data.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        Data.setForeground(Color.WHITE);
+        Data.setBackground(Color.BLACK);
+        add(Data);
 
-        num = new Random();
-        // liftOff = new Button("Lift OFF");
-        // liftOff.setBounds(800, 200, 30, 20);
-        // add(liftOff);
+        liftOff = new Button("START/STOP");
+        liftOff.setBounds(820, 200, 150, 40);
+        liftOff.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        liftOff.setForeground(Color.WHITE);
+        liftOff.setBackground(Color.BLACK);
+        liftOff.addActionListener(this);
+        add(liftOff);
 
-        addMouseMotionListener(this);
-        rocket = Toolkit.getDefaultToolkit().getImage("rocket.png");
+        Background panel = new Background();
+        add(panel);
 
-        setSize(1000, 1000);
-
+        setBackground(Color.BLACK);
         setTitle("MJKP 2020 Rocket Launching");
+        setResizable(false);
+        setSize(1000, 800);
         setVisible(true);
-        paint();
 
     }
 
-    public void mouseDragged(MouseEvent e)
+    public void actionPerformed(ActionEvent e)
     {
-
-    }
-
-    public void mouseMoved(MouseEvent e)
-    {
-        xPixel = e.getX();
-        yPixel = e.getY();
-        paint();
-    }
-
-    public void paint()
-    {
-        Graphics sky = getGraphics();
-        Graphics g = getGraphics();
-        try
+        if (Takeoff == false)
         {
-            g.fillRect(0, 0, 2000, 2000);
-            g.drawImage(rocket, xPixel, yPixel, this);
+            Takeoff = true;
+            liftOff.setForeground(Color.ORANGE);
 
-            for (int i = 0; i < 100; i++)
+            try
             {
-                xSky = num.nextInt(1000);
-                ySky = num.nextInt(1000);
-                sky.setColor(Color.WHITE);
-                sky.fillOval(xSky, ySky, 5, 5);
-            }
-            Thread.sleep(60);
-        } catch (Exception e)
+                launch.start();
+                LoopTimer.start();
+            } 
+            catch (Exception d){}
+        } 
+        else
         {
+            //Setting Default Values
+            Takeoff = false;
+            liftOff.setForeground(Color.WHITE);
+            timer = 10;
+            xRocket = 300;
+            yRocket = 300;
+
+            try
+            {
+                launch.interrupt();
+                LoopTimer.interrupt();
+            } 
+            catch (Exception d){}
         }
 
     }
 
+    //Thread to repaint the Frame
+    class RepaintThread extends Thread
+    {
+        public void run()
+        {
+            while (true)
+            {
+                try
+                {
+                    repaint();
+                    Thread.sleep(17);
+                } 
+                catch (Exception e){}
+            }
+        }
+    }
+
+    //Thread to increment timer in Loop
+    class TimerThread extends Thread
+    {
+        public void run()
+        {
+            while (true)
+            {
+                if (timer >= 300)
+                    timer = 300;
+                else
+                    timer += 1;
+
+                try
+                {
+                    Thread.sleep(100);
+                } 
+                catch (Exception e){}
+                
+            }
+        }
+    }
+
+    class Background extends JPanel implements MouseMotionListener
+    {
+
+        public Background()
+        {
+            addMouseMotionListener(this);
+        }
+
+        @Override
+        public void paintComponent(Graphics g)
+        {
+            Graphics sky = getGraphics();
+
+            if (!Takeoff)   //Before TakeOff
+            {
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, 800, 800);
+                g.drawImage(rocket_NoEngine, 300, 300, this);
+            } 
+            else    //After TakeOff
+            {
+                g.setColor(Color.BLACK);
+                g.fillRect(0, 0, 800, 800);
+                g.drawImage(rocket, xRocket, yRocket, this);
+
+                for (int i = 0; i < timer; i++)
+                {
+                    Random num = new Random();
+
+                    sky.setColor(Color.WHITE);
+                    sky.fillOval(num.nextInt(800), num.nextInt(800), 3, 3);
+                }
+
+                try
+                {
+                    Thread.sleep(17);
+                } 
+                catch (Exception e){}
+                
+            }
+        }
+
+        public void mouseDragged(MouseEvent e){}
+
+        public void mouseMoved(MouseEvent e)
+        {
+            if (Takeoff)
+            {
+                if (e.getX() <= 670 && e.getY() <= 700)
+                {
+                    xRocket = e.getX() - 100;
+                    yRocket = e.getY() - 5;
+                }
+            }
+        }
+    }
+
     public static void main(String args[])
     {
-        Main me = new Main();
+         new Main();
     }
 }
