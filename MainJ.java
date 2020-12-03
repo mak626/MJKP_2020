@@ -1,26 +1,73 @@
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Random;
 
-public class MainJ extends Frame
+class MainJ extends Frame implements MouseMotionListener
 {
-    MainJ()
+    static int xPixel = 0;
+    static int yPixel = 0;
+    static int xSky = 0;
+    static int ySky = 0;
+    Random num;
+    Image rocket;
+    Button liftOff;
+
+    public MainJ()
     {
 
-        addWindowListener(new WindowAdapter()
-        {
-            public void windowClosing(WindowEvent e)
-            {
-                dispose();
-            }
-        });
+        num = new Random();
+        // liftOff = new Button("Lift OFF");
+        // liftOff.setBounds(800, 200, 30, 20);
+        // add(liftOff);
 
-        setSize(350, 300);
-        setLayout(new FlowLayout(FlowLayout.LEFT));
+        addMouseMotionListener(this);
+        rocket = Toolkit.getDefaultToolkit().getImage("rocket.png");
+
+        setSize(1000, 1000);
+
+        setTitle("MJKP 2020 Rocket Launching");
         setVisible(true);
+        paint();
+
     }
 
-    public static void MainJ(String args[])
+    public void mouseDragged(MouseEvent e)
     {
-        MainJ frame = new MainJ();
+
+    }
+
+    public void mouseMoved(MouseEvent e)
+    {
+        xPixel = e.getX();
+        yPixel = e.getY();
+        paint();
+    }
+
+    public void paint()
+    {
+        Graphics sky = getGraphics();
+        Graphics g = getGraphics();
+        try
+        {
+            g.fillRect(0, 0, 2000, 2000);
+            g.drawImage(rocket, xPixel, yPixel, this);
+
+            for (int i = 0; i < 100; i++)
+            {
+                xSky = num.nextInt(1000);
+                ySky = num.nextInt(1000);
+                sky.setColor(Color.WHITE);
+                sky.fillOval(xSky, ySky, 5, 5);
+            }
+            Thread.sleep(60);
+        } catch (Exception e)
+        {
+        }
+
+    }
+
+    public static void main(String args[])
+    {
+        MainJ me = new MainJ();
     }
 }
