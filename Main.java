@@ -117,7 +117,7 @@ class Main extends JFrame implements ActionListener
 
                 try
                 {
-                    Thread.sleep(100);
+                    Thread.sleep(400);
                 } 
                 catch (Exception e){}
                 
