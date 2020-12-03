@@ -1,9 +1,9 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class Main extends Frame
+public class MainJ extends Frame
 {
-    Main()
+    MainJ()
     {
 
         addWindowListener(new WindowAdapter()
@@ -19,8 +19,8 @@ public class Main extends Frame
         setVisible(true);
     }
 
-    public static void main(String args[])
+    public static void MainJ(String args[])
     {
-        Main frame = new Main();
+        MainJ frame = new MainJ();
     }
 }

@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 
-public class Main extends Frame
+public class Main_P extends Frame
 {
     Main()
     {
@@ -21,6 +21,6 @@ public class Main extends Frame
 
     public static void main(String args[])
     {
-        Main frame = new Main();
+        Main_P frame = new Main_P();
     }
 }
