@@ -1,3 +1,21 @@
+/*
+    MJKP 2020 ROCKET LAUNCHING
+    --------------------------
+    TEAM MEMBERS
+    --------------------------
+    Jomi Susan Mathew       36
+    M Aswin Kishore         41
+    Karthika Sankar         39
+    Parvathy S Thampi       49
+    ---------------------------
+
+    Build on JDK 8.0
+    Java version: 1.8.0_271
+
+    ---------------------------
+
+*/
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Random;
@@ -53,25 +71,27 @@ class Main extends JFrame implements ActionListener
 
     }
 
-    public void actionPerformed(ActionEvent e)
+    public void actionPerformed(ActionEvent e) // Called by pressing the button START/STOP
     {
         if (Takeoff == false)
         {
             Takeoff = true;
-            liftOff.setForeground(Color.ORANGE);
+            liftOff.setForeground(Color.ORANGE); // Set color of button to Orange
 
             try
             {
                 launch.start();
                 LoopTimer.start();
-            } 
-            catch (Exception d){}
-        } 
+            }
+            catch (Exception d)
+            {
+            }
+        }
         else
         {
-            //Setting Default Values
+            // Setting Default Values
             Takeoff = false;
-            liftOff.setForeground(Color.WHITE);
+            liftOff.setForeground(Color.WHITE); // Set color of button to White
             timer = 10;
             xRocket = 300;
             yRocket = 300;
@@ -80,13 +100,15 @@ class Main extends JFrame implements ActionListener
             {
                 launch.interrupt();
                 LoopTimer.interrupt();
-            } 
-            catch (Exception d){}
+            }
+            catch (Exception d)
+            {
+            }
         }
 
     }
 
-    //Thread to repaint the Frame
+    // Thread to repaint the Frame
     class RepaintThread extends Thread
     {
         public void run()
@@ -97,13 +119,15 @@ class Main extends JFrame implements ActionListener
                 {
                     repaint();
                     Thread.sleep(17);
-                } 
-                catch (Exception e){}
+                }
+                catch (Exception e)
+                {
+                }
             }
         }
     }
 
-    //Thread to increment timer in Loop
+    // Thread to increment timer in Loop
     class TimerThread extends Thread
     {
         public void run()
@@ -118,9 +142,11 @@ class Main extends JFrame implements ActionListener
                 try
                 {
                     Thread.sleep(400);
-                } 
-                catch (Exception e){}
-                
+                }
+                catch (Exception e)
+                {
+                }
+
             }
         }
     }
@@ -138,21 +164,21 @@ class Main extends JFrame implements ActionListener
         {
             Graphics sky = getGraphics();
 
-            if (!Takeoff)   //Before TakeOff
+            if (!Takeoff) // Before TakeOff
             {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, 800, 800);
                 g.drawImage(rocket_NoEngine, 300, 300, this);
-            } 
-            else    //After TakeOff
+            }
+            else // After TakeOff
             {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, 800, 800);
                 g.drawImage(rocket, xRocket, yRocket, this);
 
-                for (int i = 0; i < timer; i++)
+                for (int i = 0; i < timer; i++) // Generating Stars Loop
                 {
-                    Random num = new Random();
+                    Random num = new Random(); // To create random X and Y coordinates to set the stars location
 
                     sky.setColor(Color.WHITE);
                     sky.fillOval(num.nextInt(800), num.nextInt(800), 3, 3);
@@ -161,18 +187,23 @@ class Main extends JFrame implements ActionListener
                 try
                 {
                     Thread.sleep(17);
-                } 
-                catch (Exception e){}
-                
+                }
+                catch (Exception e)
+                {
+                }
+
             }
         }
 
-        public void mouseDragged(MouseEvent e){}
+        public void mouseDragged(MouseEvent e)
+        {
+        }
 
         public void mouseMoved(MouseEvent e)
         {
             if (Takeoff)
             {
+                // Limit is set so that mouse location does not go beyond the Rectangular box
                 if (e.getX() <= 670 && e.getY() <= 700)
                 {
                     xRocket = e.getX() - 100;
@@ -184,6 +215,6 @@ class Main extends JFrame implements ActionListener
 
     public static void main(String args[])
     {
-         new Main();
+        new Main();
     }
 }
