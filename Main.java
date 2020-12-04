@@ -64,12 +64,14 @@ class Main extends JFrame implements ActionListener
             {
                 launch.start();
                 LoopTimer.start();
-            } 
-            catch (Exception d){}
-        } 
+            }
+            catch (Exception d)
+            {
+            }
+        }
         else
         {
-            //Setting Default Values
+            // Setting Default Values
             Takeoff = false;
             liftOff.setForeground(Color.WHITE);
             timer = 10;
@@ -80,13 +82,15 @@ class Main extends JFrame implements ActionListener
             {
                 launch.interrupt();
                 LoopTimer.interrupt();
-            } 
-            catch (Exception d){}
+            }
+            catch (Exception d)
+            {
+            }
         }
 
     }
 
-    //Thread to repaint the Frame
+    // Thread to repaint the Frame
     class RepaintThread extends Thread
     {
         public void run()
@@ -97,13 +101,15 @@ class Main extends JFrame implements ActionListener
                 {
                     repaint();
                     Thread.sleep(17);
-                } 
-                catch (Exception e){}
+                }
+                catch (Exception e)
+                {
+                }
             }
         }
     }
 
-    //Thread to increment timer in Loop
+    // Thread to increment timer in Loop
     class TimerThread extends Thread
     {
         public void run()
@@ -118,9 +124,11 @@ class Main extends JFrame implements ActionListener
                 try
                 {
                     Thread.sleep(400);
-                } 
-                catch (Exception e){}
-                
+                }
+                catch (Exception e)
+                {
+                }
+
             }
         }
     }
@@ -138,13 +146,13 @@ class Main extends JFrame implements ActionListener
         {
             Graphics sky = getGraphics();
 
-            if (!Takeoff)   //Before TakeOff
+            if (!Takeoff) // Before TakeOff
             {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, 800, 800);
                 g.drawImage(rocket_NoEngine, 300, 300, this);
-            } 
-            else    //After TakeOff
+            }
+            else // After TakeOff
             {
                 g.setColor(Color.BLACK);
                 g.fillRect(0, 0, 800, 800);
@@ -161,13 +169,17 @@ class Main extends JFrame implements ActionListener
                 try
                 {
                     Thread.sleep(17);
-                } 
-                catch (Exception e){}
-                
+                }
+                catch (Exception e)
+                {
+                }
+
             }
         }
 
-        public void mouseDragged(MouseEvent e){}
+        public void mouseDragged(MouseEvent e)
+        {
+        }
 
         public void mouseMoved(MouseEvent e)
         {
@@ -184,6 +196,6 @@ class Main extends JFrame implements ActionListener
 
     public static void main(String args[])
     {
-         new Main();
+        new Main();
     }
 }
