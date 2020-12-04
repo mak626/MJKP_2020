@@ -6,7 +6,7 @@ import javax.swing.*;
 class Main extends JFrame implements ActionListener
 {
     // Coordinates of rocket
-    static int xRocket = 300;
+    static int xRocket = 400;
     static int yRocket = 300;
 
     // To determine the number of stars
