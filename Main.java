@@ -7,7 +7,7 @@ class Main extends JFrame implements ActionListener
 {
     // Coordinates of rocket
     static int xRocket = 300;
-    static int yRocket = 4000;
+    static int yRocket = 300;
 
     // To determine the number of stars
     int timer = 5;
