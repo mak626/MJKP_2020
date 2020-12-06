@@ -95,7 +95,7 @@ class Main extends JFrame implements ActionListener
             // Setting Default Values
             Takeoff = false;
             liftOff.setForeground(Color.WHITE); // Set color of button to White
-            timer = 10;
+            timer = 5;
             xRocket = 300;
             yRocket = 300;
 
