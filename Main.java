@@ -209,6 +209,7 @@ class Main extends JFrame implements ActionListener
                 // Limit is set so that mouse location does not go beyond the Rectangular box
                 if (e.getX() <= 670 && e.getY() <= 700)
                 {
+                    // Calibration of mouse pointer to the tip of the rocket
                     xRocket = e.getX() - 100;
                     yRocket = e.getY() - 5;
                 }
